@@ -5,25 +5,23 @@ import * as scheduler from 'aws-cdk-lib/aws-scheduler';
 
 export interface EventBridgeSchedulerProps {
   // Define construct properties here
-  schedulerProperties : scheduler.CfnScheduleProps
+  readonly schedulerProperties : scheduler.CfnScheduleProps
 }
 
 export class EventBridgeScheduler extends Construct {
 
-  public readonly schedule:scheduler.CfnSchedule
-  public readonly output:cdk.CfnOutput
+  public readonly attr:scheduler.CfnSchedule
 
   constructor(scope: Construct, id: string, props: EventBridgeSchedulerProps) {
     super(scope, id);
     
-    this.schedule = new scheduler.CfnSchedule(this,'scheduleOne', props.schedulerProperties)
+    this.attr = new scheduler.CfnSchedule(this,'scheduleOne', props.schedulerProperties)
     
-    const output:cdk.CfnOutputProps = {value:this.schedule.attrArn,
-      exportName:"schedulerOneArn",
-      description:"shecduler One ARN",
-      key:"resourceArn"  
+    const output:cdk.CfnOutputProps = {value:this.attr.attrArn,
+      exportName:"schedulerArn",
+      description:"shecduler One ARN"
     }
-    this.output = new cdk.CfnOutput(this,"schedulerOutput",output)
+    new cdk.CfnOutput(this,"schedulerOutput",output)
   }
 
   
