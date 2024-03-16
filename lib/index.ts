@@ -3,11 +3,11 @@ import * as lf from 'aws-cdk-lib/aws-lakeformation';
 
 export interface LakeformationProps {
   // Required variables for constructs
-  DataLocation:lf.CfnPrincipalPermissions.DataLocationResourceProperty,
+  DataLocation: string,
   principalarn:lf.CfnPrincipalPermissions.DataLakePrincipalProperty,
   permissions:string [],
   permissionGrant:string [],
-  catalogID: any,
+  catalogID: string,
   S3bucket: string,
   RegisterRoleArn: string
 }
@@ -25,7 +25,7 @@ export class Lakeformation extends Construct {
     // Adding permissions to resource with given IAM role
     const permissions = new lf.CfnPrincipalPermissions(this,'LfPermissions',{
       resource:{
-        dataLocation:props.DataLocation,
+        dataLocation:{catalogId:props.catalogID,resourceArn:props.DataLocation},
         catalog:{catalog:props.catalogID}
         },
       permissions:props.permissions,
