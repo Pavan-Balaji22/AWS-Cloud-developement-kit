@@ -1,14 +1,14 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as Lakeformation from '../lib/index';
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import * as Lakeformation from '../lib/index';
 
 // example test. To run these tests, uncomment this file along with the
 // example resource in lib/index.ts
 test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//   const stack = new cdk.Stack(app, "TestStack");
+  const app = new cdk.App();
+  const stack = new cdk.Stack(app, "TestStack");
 //   // WHEN
-//   new Lakeformation.Lakeformation(stack, 'MyTestConstruct');
+//   new Lakeformation.Lakeformation(stack, 'MyTestConstruct',{});
 //   // THEN
 //   const template = Template.fromStack(stack);
 

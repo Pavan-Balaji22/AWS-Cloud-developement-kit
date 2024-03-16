@@ -1,9 +1,8 @@
-# Welcome to your CDK TypeScript Construct Library project
+# Lakeformation L2 Construct
 
-You should explore the contents of this project. It demonstrates a CDK Construct Library that includes a construct (`Lakeformation`)
-which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
+You should explore the contents of this project. It demonstrates a CDK Construct Library that includes a construct (`Lakeformation`) which contains Lakeformation resources.
 
-The construct defines an interface (`LakeformationProps`) to configure the visibility timeout of the queue.
+The construct defines an interface (`LakeformationProps`) which lists the required variables and their types for using this construct.
 
 ## Useful commands
 
