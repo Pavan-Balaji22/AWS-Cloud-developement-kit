@@ -2,7 +2,7 @@ import { Construct } from 'constructs';
 import * as lf from 'aws-cdk-lib/aws-lakeformation';
 
 export interface LakeformationProps {
-   // Define construct properties here
+  // Define construct properties here
   DataLocation:lf.CfnPrincipalPermissions.DataLocationResourceProperty,
   principalarn:lf.CfnPrincipalPermissions.DataLakePrincipalProperty,
   permissions:string [],
