@@ -8,7 +8,7 @@ test('SQS Queue Created', () => {
 //   const app = new cdk.App();
 //   const stack = new cdk.Stack(app, "TestStack");
 //   // WHEN
-//   new EventBridgeScheduler.EventBridgeScheduler(stack, 'MyTestConstruct');
+//   new EventBridgeS÷cheduler.EventBridgeScheduler(stack, 'MyTestConstruct');
 //   // THEN
 //   const template = Template.fromStack(stack);
 
