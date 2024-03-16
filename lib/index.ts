@@ -7,7 +7,6 @@ export interface LakeformationProps {
   principalarn:lf.CfnPrincipalPermissions.DataLakePrincipalProperty,
   permissions:string [],
   permissionGrant:string [],
-  resource: lf.CfnPrincipalPermissions.ResourceProperty,
   catalogID: string,
   S3bucket: string,
   RegisterRoleArn: string
@@ -25,7 +24,9 @@ export class Lakeformation extends Construct {
 
     // Adding permissions to resource with given IAM role
     const permissions = new lf.CfnPrincipalPermissions(this,'LfPermissions',{
-      resource:props.resource,
+      resource:{
+        dataLocation:props.DataLocation
+        },
       permissions:props.permissions,
       permissionsWithGrantOption:props.permissionGrant,
       principal:props.principalarn,
