@@ -1,18 +1,26 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as EventBridgeScheduler from '../lib/index';
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { EventBridgeScheduler } from '../lib/index';
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/index.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//   const stack = new cdk.Stack(app, " TestStack");
-//   // WHEN
-//   new EventBridgeS÷cheduler.EventBridgeScheduler(stack, 'MyTestConstruct');
-//   // THEN
-//   const template = Template.fromStack(stack);
+test('EventBridge Schedule Created', () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, "TestStack");
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+new EventBridgeScheduler(stack, 'MyTestConstruct',{schedulerProperties:{
+        name:"test-schedule",
+        flexibleTimeWindow:{mode:"OFF"},
+        scheduleExpression: "rate(1 hour)",
+        target:{input:'{data:"test"}',
+            arn:"rds:StartDbInstance",
+            roleArn:"role"
+            }
+}});
+
+const template = Template.fromStack(stack);
+
+
+
+  template.hasResourceProperties('AWS::Scheduler::Schedule',{
+        Name:"test-schedule"
+});
 });
