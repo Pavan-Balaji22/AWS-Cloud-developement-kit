@@ -8,7 +8,7 @@ test('Lakeformation template Created', () => {
   const app = new cdk.App();
   const stack = new cdk.Stack(app, "TestStack");
 //   // WHEN
-  new Lakeformation.Lakeformation(stack, 'MyTestConstruct',{catalogID:"5123212",
+  new Lakeformation.Lakeformation(stack, 'LakeformationConstruct',{catalogID:"5123212",
   DataLocation:{
     catalogId:"5123213",
     resourceArn:"arn:aws:s3:::examplebucket"
@@ -20,4 +20,5 @@ test('Lakeformation template Created', () => {
   S3bucket:"arn:aws:s3:::examplebucket"});
 //   // THEN
   const template = Template.fromStack(stack);
+  console.log(template.toJSON());
 });
