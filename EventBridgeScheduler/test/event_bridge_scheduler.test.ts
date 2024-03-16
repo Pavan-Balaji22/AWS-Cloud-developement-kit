@@ -6,7 +6,7 @@
 // example resource in lib/index.ts
 test('SQS Queue Created', () => {
 //   const app = new cdk.App();
-//   const stack = new cdk.Stack(app, "TestStack");
+//   const stack = new cdk.Stack(app, " TestStack");
 //   // WHEN
 //   new EventBridgeS÷cheduler.EventBridgeScheduler(stack, 'MyTestConstruct');
 //   // THEN
