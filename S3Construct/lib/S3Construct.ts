@@ -1,20 +1,13 @@
 import { Construct } from 'constructs';
-import * as lf from 'aws-cdk-lib/aws-lakeformation';
+import * as s3 from 'aws-cdk-lib/aws-S3';
 
-export interface LakeformationProps {
+export interface S3Props {
   // Required variables for constructs
-  DataLocation: string,
-  principalarn:lf.CfnPrincipalPermissions.DataLakePrincipalProperty,
-  permissions:string [],
-  permissionGrant:string [],
-  catalogID: string,
-  S3bucket: string,
-  RegisterRoleArn: string
 }
 
-export class Lakeformation extends Construct {
+export class S3 extends Construct {
 
-  constructor(scope: Construct, id: string, props: LakeformationProps) {
+  constructor(scope: Construct, id: string, props: S3Props) {
     super(scope, id);
     
     // Registering bucket with given role

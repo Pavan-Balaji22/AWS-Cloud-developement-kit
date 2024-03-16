@@ -1,10 +1,10 @@
-import {Lakeformation} from "../lib/LakeFormationConstruct";
+import {Lakeformation} from "../lib/S3Construct";
 import * as cdk from "aws-cdk-lib";
 
 const app = new cdk.App();
 const stack = new cdk.Stack(app,"LFStack");
 const config = {
-    catalogID:"5123212",
+    catalogID:"123445123212",
     DataLocation:"arn:aws:s3:::examplebucket",
     permissionGrant:[""],
     permissions:["SELECT"],
