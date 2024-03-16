@@ -1,4 +1,4 @@
-import {Lakeformation} from "../lib/index";
+import {Lakeformation} from "../lib/LakeFormationConstruct";
 import * as cdk from "aws-cdk-lib";
 
 const app = new cdk.App();
