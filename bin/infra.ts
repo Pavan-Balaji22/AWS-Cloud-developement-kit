@@ -15,4 +15,4 @@ const config = {
 
 const lf = new Lakeformation(stack,"Lakeformation-Stack",config);
 
-app.synth()
+app.synth();
