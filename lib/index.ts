@@ -2,13 +2,13 @@ import { Construct } from 'constructs';
 import * as lf from 'aws-cdk-lib/aws-lakeformation';
 
 export interface LakeformationProps {
-  // Define construct properties here
+  // Required variables for constructs
   DataLocation:lf.CfnPrincipalPermissions.DataLocationResourceProperty,
   principalarn:lf.CfnPrincipalPermissions.DataLakePrincipalProperty,
   permissions:string [],
   permissionGrant:string [],
   resource: lf.CfnPrincipalPermissions.ResourceProperty,
-  catalog: string,
+  catalogID: string,
   S3bucket: string,
   RegisterRoleArn: string
 }
@@ -29,7 +29,7 @@ export class Lakeformation extends Construct {
       permissions:props.permissions,
       permissionsWithGrantOption:props.permissionGrant,
       principal:props.principalarn,
-      catalog:props.catalog});
+      catalog:props.catalogID});
 
     function addDependancy(temp:string) {
       permissions.addDependsOn(lfresource);
