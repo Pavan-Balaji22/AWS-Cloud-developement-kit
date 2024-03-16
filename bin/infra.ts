@@ -2,7 +2,7 @@ import {Lakeformation} from "../lib/index";
 import * as cdk from "aws-cdk-lib";
 
 const app = new cdk.App();
-
+const stack = new cdk.Stack(app,"LFStack");
 const config = {
     catalogID:"5123212",
     DataLocation:"arn:aws:s3:::examplebucket",
@@ -13,4 +13,6 @@ const config = {
     S3bucket:"arn:aws:s3:::examplebucket"
 }
 
-const lf = new Lakeformation(app,"Lakeformation-Stack",config);
+const lf = new Lakeformation(stack,"Lakeformation-Stack",config);
+
+app.synth()

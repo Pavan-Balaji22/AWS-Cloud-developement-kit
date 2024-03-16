@@ -9,10 +9,7 @@ test('Lakeformation template Created', () => {
   const stack = new cdk.Stack(app, "TestStack");
 //   // WHEN
   new Lakeformation.Lakeformation(stack, 'LakeformationConstruct',{catalogID:"5123212",
-  DataLocation:{
-    catalogId:"5123213",
-    resourceArn:"arn:aws:s3:::examplebucket"
-  },
+  DataLocation:"arn:aws:s3:::examplebucket",
   permissionGrant:[""],
   permissions:["SELECT"],
   principalarn:{dataLakePrincipalIdentifier:"arn:aws:s3:::examplebucket"},
