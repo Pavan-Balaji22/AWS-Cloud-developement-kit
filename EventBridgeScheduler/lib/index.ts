@@ -15,7 +15,7 @@ export class EventBridgeScheduler extends Construct {
   constructor(scope: Construct, id: string, props: EventBridgeSchedulerProps) {
     super(scope, id);
     
-    this.attr = new scheduler.CfnSchedule(this,'scheduleOne', props.schedulerProperties)
+    this.attr = new scheduler.CfnSchedule(this,'scheduleOne-1', props.schedulerProperties)
     
     const output:cdk.CfnOutputProps = {value:this.attr.attrArn,
       exportName:"schedulerArn",
