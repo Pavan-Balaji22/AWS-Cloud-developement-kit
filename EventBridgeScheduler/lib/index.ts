@@ -6,7 +6,7 @@ import * as scheduler from 'aws-cdk-lib/aws-scheduler';
 export interface EventBridgeSchedulerProps {
   // Define construct properties here
   readonly schedulerProperties : scheduler.CfnScheduleProps;
-  name: string;
+  readonly name: string;
   readonly deadLetterQueue:scheduler.CfnSchedule.DeadLetterConfigProperty;
   readonly executionRole:string;
   readonly kmsKey?: string; 
