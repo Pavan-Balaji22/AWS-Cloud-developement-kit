@@ -4,7 +4,7 @@ import * as scheduler from 'aws-cdk-lib/aws-scheduler';
 
 
 export interface EventBridgeSchedulerProps {
-  // Define construct properties here
+
   readonly schedulerProperties : scheduler.CfnScheduleProps;
   readonly name: string;
   readonly deadLetterQueue:scheduler.CfnSchedule.DeadLetterConfigProperty;
@@ -28,18 +28,21 @@ export interface EventBridgeSchedulerProps {
 
 export class EventBridgeScheduler extends Construct {
 
-  public readonly attr:scheduler.CfnSchedule
-  
+  public readonly attr:scheduler.CfnSchedule;
+  window:scheduler.CfnSchedule.FlexibleTimeWindowProperty = {mode:"OFF"};
+  target:scheduler.CfnSchedule.TargetProperty;
+  schedulerProperties:scheduler.CfnScheduleProps
 
+  
   constructor(scope: Construct, id: string, props: EventBridgeSchedulerProps) {
     super(scope, id);
-    var window:scheduler.CfnSchedule.FlexibleTimeWindowProperty = {mode:"OFF"};
     
     if (props.flexibleWindow) {
-      window = {
+      this.window = {
         mode:"FLEXIBLE",
         maximumWindowInMinutes:props.flexibleWindow
-    }}
+      }
+    }
 
     if(props.targetApiCall && props.targetResourceArn){
       throw new Error("Only one targetApiCall or targetResourceArn variable can be set");
@@ -47,19 +50,21 @@ export class EventBridgeScheduler extends Construct {
     }
 
     if(props.targetApiCall){
-      const target:scheduler.CfnSchedule.TargetProperty = {arn:`arn:aws:scheduler:::aws-sdk:targetApiCall`,
-      roleArn:props.executionRole,
-      input:props.targetInput,
-      retryPolicy:props.targetRetry,
-      deadLetterConfig:props.deadLetterQueue} 
+      this.target = {
+        arn:`arn:aws:scheduler:::aws-sdk:targetApiCall`,
+        roleArn:props.executionRole,
+        input:props.targetInput,
+        retryPolicy:props.targetRetry,
+        deadLetterConfig:props.deadLetterQueue,
+      } 
     }
 
     const schedulerProperties:scheduler.CfnScheduleProps = {name:props.name,
-    flexibleTimeWindow: window,
-    target:,
+    flexibleTimeWindow: this.window,
+    target:this.target,
     scheduleExpression:props.expression,
 
-    }};
+    };
   
     this.attr = new scheduler.CfnSchedule(this,'scheduleOne-1', schedulerProperties)
     
