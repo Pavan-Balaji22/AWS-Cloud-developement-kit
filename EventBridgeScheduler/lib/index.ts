@@ -19,12 +19,7 @@ export interface EventBridgeSchedulerProps {
   readonly targetApiCall?: string;
   readonly targetResourceArn?: string;
   readonly targetInput: string;
-  readonly targetResourceParameters?:
-    | scheduler.CfnSchedule.EcsParametersProperty
-    | scheduler.CfnSchedule.KinesisParametersProperty
-    | scheduler.CfnSchedule.EventBridgeParametersProperty
-    | scheduler.CfnSchedule.SqsParametersProperty
-    | scheduler.CfnSchedule.SageMakerPipelineParametersProperty;
+  readonly targetResourceParameters?: any;
 }
 
 export class EventBridgeScheduler extends Construct {
@@ -54,8 +49,33 @@ export class EventBridgeScheduler extends Construct {
         arn: `arn:aws:scheduler:::aws-sdk:targetApiCall`,
         roleArn: props.executionRole,
         input: props.targetInput,
-        retryPolicy: props.targetRetry,
-        deadLetterConfig: props.deadLetterQueue,
+        retryPolicy: props.targetRetry ? props.targetRetry : undefined,
+        deadLetterConfig: props.deadLetterQueue
+          ? props.deadLetterQueue
+          : undefined,
+      };
+    }
+
+    if (props.targetResourceArn) {
+      const service: string = props.targetResourceArn.split(":")[2];
+      this.target = {
+        arn: props.targetResourceArn,
+        roleArn: props.executionRole,
+        input: props.targetInput,
+        retryPolicy: props.targetRetry ? props.targetRetry : undefined,
+        deadLetterConfig: props.deadLetterQueue
+          ? props.deadLetterQueue
+          : undefined,
+        ecsParameters:
+          service === "ecs" ? props.targetResourceParameters : undefined,
+        eventBridgeParameters:
+          service === "events" ? props.targetResourceParameters : undefined,
+        kinesisParameters:
+          service === "kinesis" ? props.targetResourceParameters : undefined,
+        sageMakerPipelineParameters:
+          service === "sagemaker" ? props.targetResourceParameters : undefined,
+        sqsParameters:
+          service === "sqs" ? props.targetResourceParameters : undefined,
       };
     }
 
@@ -64,6 +84,12 @@ export class EventBridgeScheduler extends Construct {
       flexibleTimeWindow: this.window,
       target: this.target,
       scheduleExpression: props.expression,
+      endDate: props.endDate ? props.endDate : undefined,
+      startDate: props.startDate ? props.startDate : undefined,
+      groupName: props.scheduleGroup ? props.scheduleGroup : undefined,
+      kmsKeyArn: props.kmsKey ? props.kmsKey : undefined,
+      scheduleExpressionTimezone: props.timeZone ? props.timeZone : undefined,
+      state: props.state ? props.state : "ENABLED",
     };
 
     this.attr = new scheduler.CfnSchedule(
