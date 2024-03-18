@@ -3,19 +3,18 @@ import { Construct } from "constructs";
 import * as scheduler from "aws-cdk-lib/aws-scheduler";
 
 export interface EventBridgeSchedulerProps {
-  readonly schedulerProperties: scheduler.CfnScheduleProps;
   readonly name: string;
   readonly deadLetterQueue: scheduler.CfnSchedule.DeadLetterConfigProperty;
   readonly executionRole: string;
   readonly kmsKey?: string;
   readonly expression: string;
-  readonly flexibleWindow: number;
+  readonly flexibleWindow?: number;
   readonly endDate?: string;
   readonly timeZone?: string;
   readonly startDate?: string;
   readonly state?: string;
   readonly scheduleGroup?: string;
-  readonly targetRetry: scheduler.CfnSchedule.RetryPolicyProperty;
+  readonly targetRetry?: scheduler.CfnSchedule.RetryPolicyProperty;
   readonly targetApiCall?: string;
   readonly targetResourceArn?: string;
   readonly targetInput: string;
