@@ -7,11 +7,12 @@ test("EventBridge Schedule Created", () => {
   const stack = new cdk.Stack(app, "TestStack");
 
   new EventBridgeScheduler(stack, "MyTestConstruct", {
-    deadLetterQueue: { arn: "dsads" },
-    executionRole: "wdawsdds",
-    expression: "dsadsada",
-    name: "dasdasdasd",
-    targetInput: "dasdada",
+    deadLetterQueue: { arn: "arn:aws:sqs:us-east1:queue/dead-letter-queue" },
+    executionRole: "arn:aws:iam::role/execution-role",
+    expression: "rate(1 hour)",
+    name: "test-schedule",
+    targetInput: `{DBInstance:"test-rds-instance"}`,
+    targetApiCall: "rds:startInstance",
   });
 
   const template = Template.fromStack(stack);

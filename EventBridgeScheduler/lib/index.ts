@@ -39,7 +39,13 @@ export class EventBridgeScheduler extends Construct {
 
     if (props.targetApiCall && props.targetResourceArn) {
       throw new Error(
-        "Only one targetApiCall or targetResourceArn variable can be set"
+        "Only one of targetApiCall or targetResourceArn variable can be set"
+      );
+    }
+
+    if (!props.targetApiCall && !props.targetResourceArn) {
+      throw new Error(
+        "Atleast one of targetApiCall or targetResourceArn variable can be set"
       );
     }
 
