@@ -4,7 +4,7 @@ import * as scheduler from "aws-cdk-lib/aws-scheduler";
 
 export interface EventBridgeSchedulerProps {
   readonly name: string;
-  readonly deadLetterQueue: scheduler.CfnSchedule.DeadLetterConfigProperty;
+  readonly deadLetterQueue?: scheduler.CfnSchedule.DeadLetterConfigProperty;
   readonly executionRole: string;
   readonly kmsKey?: string;
   readonly expression: string;
@@ -51,7 +51,7 @@ export class EventBridgeScheduler extends Construct {
 
     if (props.targetApiCall) {
       this.target = {
-        arn: `arn:aws:scheduler:::aws-sdk:targetApiCall`,
+        arn: `arn:aws:scheduler:::aws-sdk:${props.targetApiCall}`,
         roleArn: props.executionRole,
         input: props.targetInput,
         retryPolicy: props.targetRetry ? props.targetRetry : undefined,
