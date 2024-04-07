@@ -1,6 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as scheduler from "aws-cdk-lib/aws-scheduler";
+import { ProductStack } from "aws-cdk-lib/aws-servicecatalog";
 
 export interface EventBridgeSchedulerProps {
   readonly name: string;
@@ -19,10 +20,12 @@ export interface EventBridgeSchedulerProps {
   readonly targetResourceArn?: string;
   readonly targetInput: string;
   readonly targetResourceParameters?: any;
+  readonly env: any;
 }
 
 export class EventBridgeScheduler extends Construct {
   public readonly attr: scheduler.CfnSchedule;
+  output: cdk.CfnOutputProps;
   window: scheduler.CfnSchedule.FlexibleTimeWindowProperty = { mode: "OFF" };
   target: scheduler.CfnSchedule.TargetProperty;
   schedulerProperties: scheduler.CfnScheduleProps;
@@ -102,12 +105,21 @@ export class EventBridgeScheduler extends Construct {
       "scheduleOne-1",
       schedulerProperties
     );
+    if (props.scheduleGroup) {
+      this.output = {
+        value: `arn:aws:scheduler:${props.env.region}:${props.env.accountid}:schedule/${props.scheduleGroup}/${props.name}`,
+        exportName: `${props.name}-scheduleArn`,
+        description: "shecdule ARN",
+      };
+    } else {
+      this.output = {
+        value: this.attr.attrArn,
+        exportName: `${props.name}-scheduleArn`,
+        description: "shecdule ARN",
+      };
+    }
 
-    const output: cdk.CfnOutputProps = {
-      value: this.attr.attrArn,
-      exportName: "schedulerArn",
-      description: "shecduler One ARN",
-    };
-    new cdk.CfnOutput(this, "schedulerOutput", output);
+    new cdk.CfnOutput(this, `${props.name}-arn`, this.output);
+    cdk.Stack.of(this).account;
   }
 }
