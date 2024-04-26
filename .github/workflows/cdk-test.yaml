@@ -1,0 +1,8 @@
+name: CDK Test workflow
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  call-diff-workflow:
+    uses: Pavan-Balaji22/Github-Actions-Workflows/blob/master/.github/workflows/cdk-diff.yaml
