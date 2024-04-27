@@ -1,7 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as scheduler from "aws-cdk-lib/aws-scheduler";
-import { ProductStack } from "aws-cdk-lib/aws-servicecatalog";
 
 export interface EventBridgeSchedulerProps {
   readonly name: string;
