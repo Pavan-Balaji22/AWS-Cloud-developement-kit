@@ -119,6 +119,5 @@ export class EventBridgeScheduler extends Construct {
     }
 
     new cdk.CfnOutput(this, `${props.name}-arn`, this.output);
-    cdk.Stack.of(this).account;
   }
 }
