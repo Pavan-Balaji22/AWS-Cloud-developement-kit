@@ -1,4 +1,4 @@
-# Lakeformation L2 Construct
+# s3 L2 Construct
 
 You should explore the contents of this project. It demonstrates a CDK Construct Library that includes a construct (`Lakeformation`) which contains Lakeformation resources.
 
